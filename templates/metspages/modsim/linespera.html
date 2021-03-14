@@ -1,0 +1,174 @@
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+						   
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Modelos de inventario
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_EOQ') }}">Modelo Cantidad económica de pedido</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_general') }}">Simulación del inventario</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_empresa') }}">inventario de la  empresa Computronc</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+               
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Modelo de linea de espera
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera') }}">Valores autogenerados</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera_aditivo') }}">Por congruencial aditivo</a></li>
+                    <li><a class="dropdown-item"  href="{{ url_for('modsim_api.linea_espera_multiplicativo') }}">Por congruencial multiplicativo</a></li>
+                  </ul>
+                </div>
+              </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">  Modelo de líneas de espera</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                El objetivo es encontrar el estado óptimo del sistema y determinar una capacidad de servicio apropiada, Minimizar
+                el tiempo de atención y servicio
+                a los clientes o usuarios que llegan en un determinado tiempo. Cuenta con las siguientes relaciones matemáticas:
+                \[ La \ probabilidad \ de \ hallar \ el \ sistema \ ocupado: \ p=\lambda/\mu \]
+                \[ La \ probabilidad \ de \ que \ no \ haya \ unidades \ en \ el \ sistema: \ Po=1-\lambda/\mu \]
+                \[ Promedio \ de \ unidades \ en \ la \ linea \ de \ espera: \ Lq=\lambda^2/(\mu-\lambda)\mu \]
+                \[ Número \ esperado \ de \ clientes \ en \ el \ sistema: \ L=\lambda/\mu-\lambda \]
+                \[ Tiempo \ de \ espera \ en \ cola: Wq=\lambda/\mu(\mu-\lambda) \]
+                \[ El \ tiempo \ promedio \ que \ una \ unidad \ pasa \ en \ el \ sistema: \ W=1/(\mu-\lambda) \]
+                \[ La \ probabilidad \ de \ que \ haya \ n \ unidades \ en \ el \ sistema: \ Pn=(\lambda/\mu)^n Po \]
+                \[\]
+                {% if D != None %}
+                Para los datos ingresados los resultados serían los siguientes:
+                \[ La \ probabilidad \ de \ hallar \ el \ sistema \ ocupado: \ {{dato2}} \]
+                \[ La \ probabilidad \ de \ que \ no \ haya \ unidades \ en \ el \ sistema: \ {{dato3}} \]
+                \[ Promedio \ de \ unidades \ en \ la \ linea \ de \ espera: \ {{dato4}} \]
+                \[ Número \ esperado \ de \ clientes \ en \ el \ sistema: \ {{dato5}} \]
+                \[ Tiempo \ de \ espera \ en \ cola: {{dato7}} \]
+                \[ El \ tiempo \ promedio \ que \ una \ unidad \ pasa \ en \ el \ sistema: \ {{dato6}} \]
+                \[ La \ probabilidad \ de \ que \ haya \ n \ unidades \ en \ el \ sistema: \ {{dato8}} \]
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+             Resultados
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item d-none">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfico valores 
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                <img src="{{ grafica }}" width="900">
+            
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item d-none">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+             Valores acumulados
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                {% for table in tables2 %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

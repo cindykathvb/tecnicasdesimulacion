@@ -1,0 +1,179 @@
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+						   
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Modelos de inventario
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_EOQ') }}">Modelo Cantidad económica de pedido</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_general') }}">Simulación del inventario</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_empresa') }}">inventario de la  empresa modelo real</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+               
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Modelo de linea de espera
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera') }}">Valores autogenerados</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera_aditivo') }}">Por congruencial aditivo</a></li>
+                    <li><a class="dropdown-item"  href="{{ url_for('modsim_api.linea_espera_multiplicativo') }}">Por congruencial multiplicativo</a></li>
+                  </ul>
+                </div>
+              </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">  Inventario para empresa modelo real</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Se trata en determinar con que frecuencia y en que cantidad se debe reabastecer el
+                inventario de manera que se minimice la suma de los costos por unidad de tiempo.
+                Tenemos varias relaciones matemáticas como son:
+                \[ Número \ anual \ de \ pedidos: \ N = D/Q \]
+                \[ Inventario \ promedio \ anual: \ Q/2 \]
+                \[ Costo \ anual \ de \ mantener \ el \ inventario: \ ChT = Q/2 * Ch \]
+                \[ Costo \ anual \ de \ hacer \ los \ pedidos: \ CoT = D/Q* Co \]
+                \[ Costo \ total \ de \ inventario: \ MO(Q) = ChT + CoT \]
+                \[ Tiempo \ entre \ pedidos: \ T = Q/D \]
+                Donde \( N \) es el número de pedidos, \(T\) el tiempo entre pedidos, \(D\) es la demanda, \(Q\) la cantidad
+                óptima de pedido,
+                \(Ch\) el costo de mantener y \(ChT\) el costo anual de mantener, \(Co\) el costo de ordenar y \(CoT\)
+                el costo anual de ordenar, y por último, \(MO(Q)\) el costo mínimo total.
+                \[ \]
+                {% if D != None %}
+                Para los datos ingresados se tienen los siguientes resultados:
+                \[ Cantidad \ optima \ de \ pedidos \ = {{dato1}} \]
+                \[ Costo \ total \ de \ ordenar \ = {{dato2}} \]
+                \[ Costo \ total \ de \ mantener \ el \ inventario \ = {{dato3}} \]
+                \[ Costo \ total \ de \ inventario: \ = {{dato4}} \]
+                \[ Costo \ total \ del \ sistema \ de \ inventario \ = {{dato5}} \]
+                \[ Número \ total \ de \ pedidos \ = {{dato6}} \]
+                \[ Punto \ de \ reorden \ = {{dato7}} \]
+                \[ Tiempo de \ pedido \ = {{dato8}} \]
+          
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de costos
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item  ">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfico comparativo  
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                <img src="{{ grafica }}" width="900">
+            
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item  ">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
+                Tabla de Kardex
+            </button>
+            </h2>
+            <div id="collapsefive" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if D != None %} 
+                {% for table in tables2 %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

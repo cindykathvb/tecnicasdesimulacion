@@ -1,0 +1,152 @@
+ 
+ 
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <a class="nav-link   "  href="{{ url_for('metran_api.cuadrado_medio') }}">Método cuadrado medio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('metran_api.congruencial_aditivo') }}">Método congruencial aditivo</a>
+          </li>
+          <li class="nav-item">
+             
+            <div class=" nav-link btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Método congruencial multiplicativo
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_autogenerado') }}">Autogenerar valores</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_30264') }}">generador excel-03 mod 30264</a></li>
+              <li><a class="dropdown-item"  href="{{ url_for('metran_api.congruencial_multiplicativo_30307') }}">generador excel-07 mod 30307</a></li>
+             
+              <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_30323') }}">generador excel-07 mod 30323</a></li>
+            </ul>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> Método congruencial Multiplicativo</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Tiene como base al algoritmo congruencial lineal pero conlleva una operación menos, la operación principal es la
+                siguiente:
+                \[ X_{i+1} = (aX_{i})mod(m) \]
+          
+                {% if N != None %}
+                Teniendo los datos iniciales se procede a multiplicar la semilla con el multiplicador:
+                \[ ({{ X0 }} * {{ A }}) = {{ res1 }} \]
+                A este se le aplica el módulo que designamos, el cual nos va a dejar solo el residuo de la división realizada por
+                este,
+                con esto habremos descubierto cual es nuestro valor pseudorandómico y al multiplicar por el módulo tendremos
+                nuestra nueva semilla para la siguiente iteración:
+                \[ { {{ res1 }} \over {{ M }} }= {{ res2 }} \qquad {{ res2 }}* {{ M }} = {{ res1 }}\]
+                Esto se puede apreciar de mejor manera en la siguiente iteración como se ve a continuación usando la nueva
+                semilla:
+                \[ ({{ res1 }} * {{ A }}) = {{ res3 }} \qquad { {{ res3 }} \over {{ M }} }= {{ res5 }} = {{ res4 }} \]
+                De ahí solo hay que repetir el proceso las veces necesarias teniendo en cuenta el reemplazar la semilla en cada
+                iteracion.
+          
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de valores 
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfica de los números aleatorios generados
+              </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                <img src="{{ grafica }}" width="550"> 
+                {% endif %}
+              </div>
+            </div>
+          </div>
+   
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

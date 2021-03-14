@@ -1,0 +1,130 @@
+ 
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <a class="nav-link   " href="{{ url_for('metprob_api.promedio_movil') }}">Promedio Movil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('metprob_api.alisamiento_exponencial') }}">Alisamiento Exponencial</a>
+          </li>
+
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> Alisamiento exponencial</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                Para el alisamiento exponencial se tiene la siguiente fórmula:
+                \[ \propto(Xn-1) + (1-\propto)Sn-1 \]
+                Donde \(\propto\) es la constante de suavización entre 0 y 1, \(Xn-1\) es el valor real de la serie
+                y \(Sn-1\) es el pronóstico de la serie.
+                \[\]
+                {% if N != None %}
+                Para el ejercicio la fórmula quedaría:
+                \[ {{ M }}( {{ res1 }} ) + (1- {{ M }} ){{ res2 }} = {{ res3 }} \]
+                Y así sucesivamente para sacar los siguientes pronósticos, siempres cambiando los valores en la fórmula.
+                Para el error basta con restar el valor de la etapa actual con el alisamiento hallado:
+                \[{{ res5 }} + {{ res3 }} = {{ res4 }} \]
+            
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de valores y resultados
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfico comparativo de valores y resultados
+              </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                <img src="{{ grafica }}" width="550"> 
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

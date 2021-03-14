@@ -1,0 +1,139 @@
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+                <a class="nav-link   "  href="{{ url_for('metreg_api.regresion_lineal') }}">Regresión Lineal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('metreg_api.regresion_no_lineal') }}">Regresión no Lineal</a>
+              </li>
+
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> Regresión lineal</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body d-flex align-items-start">
+                Su expresión general se basa en la ecuación de una recta \(y = mx + b\). Donde \(m\) es la pendiente y \(b\) el
+                punto
+                de corte, y vienen expresadas de la siguiente manera:
+                \[ m = { n*\sum(x*y) - \sum x * \sum y \over n* \sum x^2 - | \sum x |^2 } \qquad b = { \sum y * \sum x^2 - \sum x
+                * \sum(x*y) \over n* \sum x^2 - | \sum x |^2 } \]<br>
+          
+                {% if N != None %}
+                Como se puede ver usa las sumatorias de todas las columnas de nuestros datos, \( n \) viene siendo la cantidad
+                de datos ingresados que equivale a \( {{ cant }} \), para los datos ingresados tenemos las siguientes sumatorias
+                totales:
+                \[ \sum x = {{ sum1 }} \qquad \sum y = {{ sum2 }} \qquad \sum x^2 = {{ sum3 }} \qquad \sum xy = {{ sum4 }} \]<br>
+                Por lo cual al reemplazar en \(m\) y \(b\) nos va a dar lo siguiente:<br>
+                \[ m = { {{ cant }}*{{ sum4 }} - {{ sum1 }} * {{ sum2 }} \over {{ cant }}*{{ sum3 }} - |{{ sum3 }}|^2 } = {{ P0 }}
+                \]<br>
+                \[ b = { {{ sum2 }}*{{ sum3 }} - {{ sum1 }}*{{ sum4 }} \over {{ cant }}*{{ sum3 }} - |{{ sum3 }}|^2 } = {{ P1 }}
+                \]<br>
+                La recta obtenida con el método de los mínimos cuadrados la siguiente:
+                \[y = {{ P0 }}*x + {{ P1 }}\] <br>
+                Si igualamos a \(0\) y despejamos \(x\) tendremos el valor de donde corta la recta en \(x\):
+                \[0 = {{ P0 }}*x + {{ P1 }}\] <br>
+                \[x = -{ {{ P1 }} \over {{ P0 }} } = {{ fin }} \]
+          
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de valores 
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfica del ajuste 
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                <img src="{{ grafica }}" width="550"> 
+                {% endif %}
+              </div>
+            </div>
+          </div>
+   
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

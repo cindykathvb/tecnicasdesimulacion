@@ -1,0 +1,146 @@
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+                <a class="nav-link   "  href="{{ url_for('metreg_api.regresion_lineal') }}">Regresión Lineal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('metreg_api.regresion_no_lineal') }}">Regresión no Lineal</a>
+              </li>
+
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> Regresión no lineal</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                La parábola de mínimos cuadrados que aproxima el conjunto de puntos \( (X1,Y1) , (X2,Y2), (X3,Y3),…..(XN,YN) \)
+                tiene ecuación dada por \(y = a_{0} + a_{1}X + a_{2}X^2 \). donde las constantes
+                \(a_{0} , a_{1} , a_{2} \) se determinan al resolver simultáneamente las ecuaciones:
+                \[ \begin{cases} \sum Y = a_{0}N + a_{1}\sum X + a_{2}\sum X^2 \\ \sum XY = a_{0} \sum X + a_{1}\sum X^2 +
+                a_{2}\sum X^3
+                \\ \sum X^2Y = a_{0} \sum X^2 + a_{1}\sum X^3 + a_{2}\sum X^4 \end{cases} \]
+          
+                {% if N != None %}
+          
+                Al tener nuestra tabla de valores con los datos ingresados tenemos las siguientes sumatorias de cada columna:
+                \[ \sum x = {{ sum1 }} \qquad \sum y = {{ sum2 }} \qquad \sum x^2 = {{ sum3 }} \qquad \sum x^3 = {{ sum4 }} \]
+                \[ \sum x^4 = {{ sum5 }}\qquad \sum xy = {{ sum6 }} \qquad \sum x^2y = {{ sum7 }}\]
+                Lo cual al reemplazar en nuestras ecuaciones nos va a quedar de la siguiente manera:
+          
+                \[ \begin{cases} {{ sum2 }} = {{ cant }}a_{0} + {{ sum1 }}a_{1} + {{ sum3 }}a_{2} \\ {{ sum6 }} = {{ sum1 }}a_{0}
+                + {{ sum7 }}a_{1} + {{ sum4 }}a_{2}
+                \\ {{ sum7 }} = {{ sum3 }}a_{0} + {{ sum4 }}a_{1} + {{ sum5 }}a_{2} \end{cases} \]
+          
+                Con estos datos ya podemos pasar a usar cualquier método para resolver sistemas de ecuaciones (reducción,
+                sustitución o igualación) para conseguir los valores de nuestras constantes,
+                con lo cual nos quedarán de la siguiente manera:
+          
+                \[ \begin{cases} a_{0} = {{ P2 }} \\ a_{1} = {{ P1 }} \\ a_{2} = {{ P0 }} \end{cases} \]
+          
+                Y reemplazamos en la ecuación original, donde ya podemos ingresar el dato que queremos predecir para conocer el
+                pronóstico estimado:
+                \(y = {{ P2 }} + {{ P1 }}({{ pron }}) + {{ P0 }}({{ pron }})^2 \)
+                \(Pronóstico \ para \ X {{ pron }} = {{ res }} \)
+          
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de resultados
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Gráfica comparativa de ajuste
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %} 
+                <img src="{{ grafica }}" width="550"> 
+                {% endif %}
+              </div>
+            </div>
+          </div>
+   
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

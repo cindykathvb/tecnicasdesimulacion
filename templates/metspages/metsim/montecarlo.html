@@ -1,0 +1,164 @@
+{% extends "layout2.html" %}
+
+{% block content %}
+<div class="  demo-1">
+
+  {% include "men_principal.html" %}
+
+  <div class="main clearfix">
+
+    <div class="card text-center">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+						   
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Método Monte Carlo
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('metsim_api.montecarlo_aditivo') }}">Por congruencial aditivo</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('metsim_api.montecarlo_multiplicativo') }}">Por congruencial multiplicativo</a></li>
+                 
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+               
+                <div class=" nav-link btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Método de la transformada inversa
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item"href="{{ url_for('metsim_api.transformada_inversa_aditivo') }}">Por congruencial aditivo</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('metsim_api.transformada_inversa_multiplicativo') }}">Por congruencial multiplicativo</a></li>
+                 
+                  </ul>
+                </div>
+              </li>
+
+        </ul>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> Método Monte Carlo</h5>
+
+        <p class="card-text">
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Formulario
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <form class="" method="POST">
+                  <table class="table">
+                    {% for field in form %}
+                    <tr>
+                      <td>{{ field.label }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ field }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td> <input type="submit" value="Resolver" class="btn btn-info form-control">
+                      </td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Teoria
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+              
+      El método de Monte carlo abarcan una colección de técnicas que permiten obtener soluciones de problemas matemáticos
+      o
+      físicos por medio de pruebas aleatorias repetidas. Es por esto que no se le puede asignar una fórmula general,
+      sino que se
+      adapta al problema en concreto basandose en los pasos que sigue este método.
+      \[\]
+      {% if N != None %}
+      Para este caso en particular, una vez ingresados los datos sacamos la probabilidad de cada valor, esto se hace
+      sumando
+      todos los valores ingresados primero, para luego dividir cada valor por la suma realizada anteriormente, por
+      ejemplo para el primer dato tenemos:
+      \[ { \sum(datos) \over {{cant}} } = {{suma}} \]
+      \[ { {{vald1}} \over {{suma}} } = {{dfprob}} \]
+      Luego sacamos la \(FPA\) (probabilidad acumulada) y los \(mínimos\) y \(máximos\), donde la \(FPA\) actual va a
+      ser la suma
+      de la probabilidad del dato anterior con la probabilidad del dato actual, mientras que para \(mínimos\) y
+      \(máximos\), el mínimo
+      va a ser la \(FPA\) anterior, y para el máximo la \(FPA\) actual. Todo se puede apreciar mejor en el gráfico.
+      \[\]
+      Por último generamos nuestros números aleatorios por el generador de nuestra preferencia, y buscamos entre que
+      rango se encuentra este número
+      para determinar a que valor corresponde y así generar nuestos datos de la simulación.
+      {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Tabla de probabilid desde valor minimo y maximo
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %}
+   
+                {% for table in tables %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                Simulacion
+            </button>
+            </h2>
+            <div id="collapsefour" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {% if N != None %}
+   
+                {% for table in tables2 %}
+                {{ table|safe }}
+                {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+   
+        </div>
+
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

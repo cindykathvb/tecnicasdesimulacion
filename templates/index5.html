@@ -1,0 +1,57 @@
+ 
+{% extends "layout.html" %}
+
+{% block content %}
+		<div class="  demo-1">	
+	 
+				{% include "men_principal.html" %}
+	 
+			<div class="main clearfix">
+			 
+				<div class="card text-center">
+					<div class="card-header">
+					  <ul class="nav nav-pills card-header-pills">
+						<li class="nav-item">
+						   
+							<div class=" nav-link btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+								Modelos de inventario
+							  </button>
+							  <ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_EOQ') }}">Modelo Cantidad económica de pedido</a></li>
+								<li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_general') }}">Simulación del inventario</a></li>
+								<li><a class="dropdown-item" href="{{ url_for('modsim_api.inventario_empresa') }}">inventario de la  empresa modelo real</a></li>
+							  </ul>
+							</div>
+						  </li>
+						  <li class="nav-item">
+						   
+							<div class=" nav-link btn-group">
+							  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+								Modelo de linea de espera
+							  </button>
+							  <ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera') }}">Valores autogenerados</a></li>
+								<li><a class="dropdown-item" href="{{ url_for('modsim_api.linea_espera_aditivo') }}">Por congruencial aditivo</a></li>
+								<li><a class="dropdown-item"  href="{{ url_for('modsim_api.linea_espera_multiplicativo') }}">Por congruencial multiplicativo</a></li>
+							  </ul>
+							</div>
+						  </li>
+					  </ul>
+					</div>
+					<div class="card-body">
+					  <h5 class="card-title">Modelos de simulación</h5>
+					  <p class="card-text">
+						Se trata de permitir predecir, comparar y optimizar el comportamiento de sus procesos simulados
+						en un tiempo muy breve sin el coste ni el riesgo de llevarlos a cabo, haciendo posible la representación
+						de los procesos, recursos, productos y servicios en un modelo dinámico. Por lo general estos están enfocados más a los 
+						procesos realizados por las empresas. 
+
+					  </p>
+						<p class="card-text"> <iframe width="727" height="409" src="https://www.youtube.com/embed/yx7lbNHKL5s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+					</div>
+				  </div>
+			</div>
+		</div> 
+
+{% endblock %}

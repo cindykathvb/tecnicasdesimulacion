@@ -1,0 +1,36 @@
+ 
+
+{% extends "layout.html" %}
+
+{% block content %}
+		<div class="  demo-1">	
+	 
+				{% include "men_principal.html" %}
+	 
+			<div class="main clearfix">
+			 
+				<div class="card text-center">
+					<div class="card-header">
+					  <ul class="nav nav-pills card-header-pills">
+						<li class="nav-item">
+						  <a class="nav-link   "   href="{{ url_for('metprob_api.promedio_movil') }}">Promedio Movil</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="{{ url_for('metprob_api.alisamiento_exponencial') }}">Alisamiento Exponencial</a>
+						</li>
+					 
+					  </ul>
+					</div>
+					<div class="card-body">
+					  <h5 class="card-title">Métodos Probabilísticos</h5>
+				 
+					  <p class="card-text">La mayoría de la actividades en los diferentes empresas públicas y privadas necesitan información futura, esto es la predicción del comportamiento de los datos
+						en series de tiempo, ya que mucha de la información tiene variación estacional o cíclica de la tendencia donde los modelos de pronóstico nos permite hallar el
+						valor esperado de acuerdo al comportamiento de los datos y permita a quien toma las decisiones poder realizar cambios en el comportamiento de los sistemas.</p>
+						<p class="card-text"><iframe width="727" height="409" src="https://www.youtube.com/embed/vGZ0mhgRleE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </p>
+					</div>
+				  </div>
+			</div>
+		</div> 
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+		<div class="  demo-1">	
+	 
+				{% include "men_principal.html" %}
+	 
+			<div class="main clearfix">
+			 
+				<div class="card text-center">
+					<div class="card-header">
+					  <ul class="nav nav-pills card-header-pills">
+						<li class="nav-item">
+						  <a class="nav-link   "  href="{{ url_for('metran_api.cuadrado_medio') }}">Método cuadrado medio</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="{{ url_for('metran_api.congruencial_aditivo') }}">Método congruencial aditivo</a>
+						</li>
+						<li class="nav-item">
+						   
+						  <div class=" nav-link btn-group">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+								Método congruencial multiplicativo
+							</button>
+							<ul class="dropdown-menu">
+							  <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_autogenerado') }}">Autogenerar valores</a></li>
+							  <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_30264') }}">generador excel-03 mod 30264</a></li>
+							  <li><a class="dropdown-item"  href="{{ url_for('metran_api.congruencial_multiplicativo_30307') }}">generador excel-07 mod 30307</a></li>
+							 
+							  <li><a class="dropdown-item" href="{{ url_for('metran_api.congruencial_multiplicativo_30323') }}">generador excel-07 mod 30323</a></li>
+							</ul>
+						  </div>
+						</li>
+					  </ul>
+					</div>
+					<div class="card-body">
+					  <h5 class="card-title">Numeros aleatorio</h5>
+					  <p class="card-text">La simulación de cualquier sistema o proceso donde existen componentes aleatorios necesita de números al azar, un número aleatorio es un número de una
+						secuencia cuya probabilidad de ocurrencia es igual a la de cualquier otro número de la secuencia. Disponer de un buen generador de números aleatorios es
+						fundamental en cualquier simulación. Aquí podrá encontrar una selección de diferentes generadores aleatorios con los que podrá trabajar.</p>
+						<p class="card-text"><iframe width="727" height="409" src="https://www.youtube.com/embed/WJKl0XrJjuw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+					</div>
+				  </div>
+			</div>
+		</div> 
+
+{% endblock %}

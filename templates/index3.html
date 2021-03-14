@@ -1,0 +1,36 @@
+ 
+
+{% extends "layout.html" %}
+
+{% block content %}
+		<div class="  demo-1">	
+	 
+				{% include "men_principal.html" %}
+	 
+			<div class="main clearfix">
+			 
+				<div class="card text-center">
+					<div class="card-header">
+					  <ul class="nav nav-pills card-header-pills">
+						<li class="nav-item">
+						  <a class="nav-link   "  href="{{ url_for('metreg_api.regresion_lineal') }}">Regresión Lineal</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="{{ url_for('metreg_api.regresion_no_lineal') }}">Regresión no Lineal</a>
+						</li>
+					 
+					  </ul>
+					</div>
+					<div class="card-body">
+					  <h5 class="card-title">Métodos de Regresión</h5>
+				 
+					  <p class="card-text">El análisis de regresión es una técnica para investigar y modelar la relación entre variables. 
+						Aplicaciones de regresión son numerosas y ocurren en casi todos los campos, incluyendo ingeniería, 
+						la física, ciencias económicas, ciencias biológicas y de la salud, como también ciencias sociales.</p>
+						<p class="card-text"><iframe width="727" height="409" src="https://www.youtube.com/embed/SsFBnvkoZa4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+					</div>
+				  </div>
+			</div>
+		</div> 
+
+{% endblock %}
